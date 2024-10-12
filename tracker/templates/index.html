@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP Address Tracker</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #4A90E2;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 12px 24px;
+            font-size: 18px;
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background-color: #357ABD;
+            transform: translateY(-2px);
+        }
+        .card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        .result-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .result-icon {
+            margin-right: 10px;
+            font-size: 24px;
+            color: #4A90E2;
+        }
+        .label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>IP Address Tracker</h1>
+    <button id="trackButton">Track My IP</button>
+    <div class="card" id="result"></div>
+
+    <script>
+        document.getElementById('trackButton').onclick = async () => {
+            const response = await fetch('/track/');
+            const data = await response.json();
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `
+                <div class="result-item">
+                    <span class="result-icon">🖥️</span>
+                    <div><span class="label">Public IPv4:</span> ${data.public_ipv4}</div>
+                </div>
+                <div class="result-item">
+                    <span class="result-icon">🌐</span>
+                    <div><span class="label">Public IPv6:</span> ${data.public_ipv6}</div>
+                </div>
+                <div class="result-item">
+                    <span class="result-icon">📍</span>
+                    <div><span class="label">Geolocation (IPv4):</span> ${data.geo_data_ipv4.city}, ${data.geo_data_ipv4.region}, ${data.geo_data_ipv4.country}</div>
+                </div>
+                <div class="result-item">
+                    <span class="result-icon">📍</span>
+                    <div><span class="label">Geolocation (IPv6):</span> ${data.geo_data_ipv6.city}, ${data.geo_data_ipv6.region}, ${data.geo_data_ipv6.country}</div>
+                </div>
+            `;
+        };
+    </script>
+</body>
+</html>
