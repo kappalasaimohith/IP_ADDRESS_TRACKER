@@ -50,7 +50,7 @@ Make sure you have the following installed:
 
 4. **Install the required packages**:
    ```bash
-   pip install django requests
+   pip install requirements.txt
    ```
 
 5. **Run the Django migrations**:
