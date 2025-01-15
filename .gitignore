@@ -2,3 +2,4 @@ db.sqlite3
 tracker/migrations
 ip_tracker/__pycache__
 tracker/__pycache__
+venv
